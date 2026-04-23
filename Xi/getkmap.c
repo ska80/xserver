@@ -59,7 +59,6 @@ SOFTWARE.
 #include "dix/request_priv.h"
 #include "dix/rpcbuf_priv.h"
 #include "Xi/handlers.h"
-#include "xkb/xkbsrv_priv.h"
 
 #include "inputstr.h"           /* DeviceIntPtr      */
 #include "swaprep.h"
@@ -80,8 +79,7 @@ ProcXGetDeviceKeyMapping(ClientPtr client)
     KeySymsPtr syms;
     int rc;
 
-    REQUEST(xGetDeviceKeyMappingReq);
-    REQUEST_SIZE_MATCH(xGetDeviceKeyMappingReq);
+    X_REQUEST_HEAD_STRUCT(xGetDeviceKeyMappingReq);
 
     rc = dixLookupDevice(&dev, stuff->deviceid, client, DixGetAttrAccess);
     if (rc != Success)

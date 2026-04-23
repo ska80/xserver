@@ -50,7 +50,7 @@ THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "opaque.h"
 #include "property.h"
 #include "scrnintstr.h"
-#include "xkbgeom.h"
+#include "xkbgeom_priv.h"
 
 #define      _XKB_RF_NAMES_PROP_ATOM         "_XKB_RULES_NAMES"
 
@@ -535,7 +535,7 @@ InitKeyboardDeviceStructInternal(DeviceIntPtr dev, XkbRMLVOSet * rmlvo,
     dev->key = calloc(1, sizeof(*dev->key));
     if (!dev->key) {
         ErrorF("XKB: Failed to allocate key class\n");
-        return FALSE;
+        goto unwind_rmlvo;
     }
     dev->key->sourceid = dev->id;
 
@@ -654,6 +654,8 @@ InitKeyboardDeviceStructInternal(DeviceIntPtr dev, XkbRMLVOSet * rmlvo,
  unwind_key:
     free(dev->key);
     dev->key = NULL;
+ unwind_rmlvo:
+    XkbFreeRMLVOSet(&rmlvo_dflts, FALSE);
     return FALSE;
 }
 

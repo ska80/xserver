@@ -55,7 +55,7 @@
 #include <X11/X.h>
 #include <X11/Xproto.h>
 #include <X11/extensions/xf86bigfproto.h>
-#include <X11/fonts/fontstruct.h>
+#include <X11/fonts/fontstruct.h> // libxfont2.h missed to include that
 #include <X11/fonts/libxfont2.h>
 
 #include "dix/dix_priv.h"
@@ -359,7 +359,7 @@ ProcXF86BigfontQueryFont(ClientPtr client)
 
     if (dixLookupFontable(&pFont, stuff->id, client, DixGetAttrAccess) !=
         Success)
-        return BadFont;         /* procotol spec says only error is BadFont */
+        return BadFont;         /* protocol spec says only error is BadFont */
 
     pmax = FONTINKMAX(pFont);
     pmin = FONTINKMIN(pFont);

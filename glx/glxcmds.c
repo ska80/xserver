@@ -133,7 +133,8 @@ validGlxFBConfigForWindow(ClientPtr client, __GLXconfig * config,
     BUG_RETURN_VAL(!pVisual, FALSE);
 
     /* FIXME: What exactly should we check here... */
-    if (pVisual->class != glxConvertToXVisualType(config->visualType) ||
+    if (pVisual == NULL ||
+        pVisual->class != glxConvertToXVisualType(config->visualType) ||
         !(config->drawableType & GLX_WINDOW_BIT)) {
         client->errorValue = pDraw->id;
         *err = BadMatch;
@@ -2472,8 +2473,6 @@ __glXpresentCompleteNotify(WindowPtr window, CARD8 present_kind, CARD8 present_m
 
     __glXsendSwapEvent(drawable, glx_type, ust, msc, serial);
 }
-
-#include <present.h>
 
 void
 __glXregisterPresentCompleteNotify(void)

@@ -350,6 +350,9 @@ typedef struct glamor_screen_private {
     struct glamor_context ctx;
 } glamor_screen_private;
 
+/* Allow overriding the default glamor screen init proc */
+extern void (*glamor_egl_screen_init2)(ScreenPtr screen, struct glamor_context *glamor_ctx);
+
 typedef enum glamor_access {
     GLAMOR_ACCESS_RO,
     GLAMOR_ACCESS_RW,
@@ -1064,7 +1067,13 @@ void glamor_egl_screen_init(ScreenPtr screen,
 
 Bool glamor_change_window_attributes(WindowPtr pWin, unsigned long mask);
 
-void glamor_copy_window(WindowPtr window, DDXPointRec old_origin, RegionPtr src_region);
+void glamor_copy_window(WindowPtr window, xPoint old_origin, RegionPtr src_region);
+
+/*
+ * unref a glamor pixmap (specialized form of fbPixmap) and free
+ * if refcnt already had reached 1
+ */
+Bool glamor_destroy_pixmap(PixmapPtr pixmap);
 
 #include "glamor_utils.h"
 

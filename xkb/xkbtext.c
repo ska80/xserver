@@ -41,7 +41,7 @@
 #include "dix.h"
 #include "xkbstr.h"
 #include <xkbsrv.h>
-#include "xkbgeom.h"
+#include "xkbgeom_priv.h"
 
 /***====================================================================***/
 
@@ -137,11 +137,11 @@ XkbVModIndexText(XkbDescPtr xkb, unsigned ndx, unsigned format)
 
     len = strlen(tmp) + 1;
     if (format == XkbCFile)
-        len += 4;
+        len += 5;
     rtrn = tbGetBuffer(len);
     if (format == XkbCFile) {
         strcpy(rtrn, "vmod_");
-        strncpy(&rtrn[5], tmp, len - 4);
+        strncpy(&rtrn[5], tmp, len - 5);
     }
     else
         strncpy(rtrn, tmp, len);

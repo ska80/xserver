@@ -1509,7 +1509,7 @@ CurrentOrOldMasterKeyboard(DeviceIntPtr dev)
         if (!kbd)
             return NULL;
         /* if dev is a pointer the saved master is a master pointer,
-         * we want the keybard */
+         * we want the keyboard */
         return GetMaster(kbd, MASTER_KEYBOARD);
     }
 
@@ -5696,9 +5696,18 @@ ProcGrabKey(ClientPtr client)
 int
 ProcGrabButton(ClientPtr client)
 {
-    WindowPtr pWin, confineTo;
-
     REQUEST(xGrabButtonReq);
+    REQUEST_SIZE_MATCH(xGrabButtonReq);
+
+    if (client->swapped) {
+        swapl(&stuff->grabWindow);
+        swaps(&stuff->eventMask);
+        swapl(&stuff->confineTo);
+        swapl(&stuff->cursor);
+        swaps(&stuff->modifiers);
+    }
+
+    WindowPtr pWin, confineTo;
     CursorPtr cursor;
     GrabPtr grab;
     DeviceIntPtr ptr, modifierDevice;
@@ -5707,7 +5716,6 @@ ProcGrabButton(ClientPtr client)
     GrabParameters param;
     int rc;
 
-    REQUEST_SIZE_MATCH(xGrabButtonReq);
     UpdateCurrentTime();
     if ((stuff->pointerMode != GrabModeSync) &&
         (stuff->pointerMode != GrabModeAsync)) {

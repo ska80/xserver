@@ -133,7 +133,7 @@ int XkbResizeKeyType(XkbDescPtr xkb, int type_ndx, int map_count,
 void XkbFreeComponentNames(XkbComponentNamesPtr names, Bool freeNames);
 void XkbSetActionKeyMods(XkbDescPtr xkb, XkbAction *act, unsigned int mods);
 unsigned int XkbMaskForVMask(XkbDescPtr xkb, unsigned int vmask);
-Bool XkbVirtualModsToReal(XkbDescPtr xkb, unsigned int virtua_mask,
+Bool XkbVirtualModsToReal(XkbDescPtr xkb, unsigned int virtual_mask,
                           unsigned int *mask_rtrn);
 unsigned int XkbAdjustGroup(int group, XkbControlsPtr ctrls);
 KeySym *XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed);
@@ -303,8 +303,4 @@ int XkbDDXUsesSoftRepeat(DeviceIntPtr dev);
 void XkbDDXKeybdCtrlProc(DeviceIntPtr dev, KeybdCtrl *ctrl);
 void XkbDDXUpdateDeviceIndicators(DeviceIntPtr dev, XkbSrvLedInfoPtr sli,
                                   CARD32 newState);
-
-KeySymsPtr XkbGetCoreMap(DeviceIntPtr keybd);
-void XkbSetRepeatKeys(DeviceIntPtr pXDev, int key, int onoff);
-
 #endif /* _XSERVER_XKBSRV_PRIV_H_ */

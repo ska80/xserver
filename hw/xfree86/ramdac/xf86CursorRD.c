@@ -1,7 +1,4 @@
-
-#ifdef HAVE_XORG_CONFIG_H
 #include <xorg-config.h>
-#endif
 
 #include "dix/colormap_priv.h"
 #include "dix/cursor_priv.h"
@@ -495,7 +492,7 @@ xf86DestroyCursorInfoRec(xf86CursorInfoPtr infoPtr)
 }
 
 /**
- * New cursor has been created. Do your initalizations here.
+ * New cursor has been created. Do your initializations here.
  */
 static Bool
 xf86DeviceCursorInitialize(DeviceIntPtr pDev, ScreenPtr pScreen)
